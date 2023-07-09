@@ -1,6 +1,8 @@
 ﻿using Core1.Repository;
 using Microsoft.AspNetCore.Mvc;
 using Core1.Models;
+using Microsoft.AspNetCore.Mvc.Rendering;
+
 namespace Core1.Controllers
 {
     public class BookController : Controller
@@ -20,7 +22,32 @@ namespace Core1.Controllers
 
         public ViewResult AddNewBook()
         {
+            // ViewBag.Languages = new List<string>() {"English" , "Arabic" , "Dutch" ,"French" };
+            ViewBag.Languages = new List<SelectListItem>()
+            {
+                new SelectListItem("English","1") ,
+                new SelectListItem("Arabic", "2") ,
+                new SelectListItem("Spanish", "3") ,
+                new SelectListItem("Hindi", "4") ,
+                new SelectListItem("Turkish", "5") ,
+                new SelectListItem("Russian", "6")
+            };  
+
             return View();
+        }
+
+
+        private List<Language> GetLanguages()
+        {
+            return new List<Language>()
+            {
+                new Language(){Id = 1 , Name = "English"},
+                new Language(){Id = 2 , Name = "Arabic"},
+                new Language(){Id = 3 , Name = "Spanish"},
+                new Language(){Id = 4 , Name = "Hindi"},
+                new Language(){Id = 5 , Name = "Turkish"},
+                new Language(){Id = 6 , Name = "Russian"},
+            };
         }
 
         [HttpPost]
@@ -41,7 +68,7 @@ namespace Core1.Controllers
             return View();
         }
 
-        [Route("book-details/{id:int}", Name = "bookDetailsRoute")]
+        [Route("book-details/{id}", Name = "bookDetailsRoute")]
         public async Task<IActionResult> GetBook(int? Id)
         {
             if(Id != null && Id != 0)

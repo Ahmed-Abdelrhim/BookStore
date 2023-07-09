@@ -58,7 +58,7 @@ namespace Core1.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Books");
+                    b.ToTable("Books", (string)null);
                 });
 
             modelBuilder.Entity("Core1.Models.Category", b =>
@@ -75,7 +75,7 @@ namespace Core1.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Categories");
+                    b.ToTable("Categories", (string)null);
 
                     b.HasData(
                         new
@@ -134,7 +134,7 @@ namespace Core1.Migrations
 
                     b.HasIndex("CategotyId");
 
-                    b.ToTable("items");
+                    b.ToTable("items", (string)null);
                 });
 
             modelBuilder.Entity("Core1.Models.Item", b =>

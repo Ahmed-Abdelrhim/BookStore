@@ -31,7 +31,6 @@ namespace Core1.Repository
                 Author = model.Author,
                 Description = model.Description,
                 Title = model.Title,
-                LanguageId = model.LanguageId,
                 TotalPages = model.TotalPages.HasValue ? model.TotalPages.Value : 0,
             };
 
