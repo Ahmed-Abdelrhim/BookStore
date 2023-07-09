@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "4PKGc6PTJhlvgvsvSMbwdI9J94aY5CKZTS7QiyKqP38=",
+  "Hash": "nNd2ZHWw/z3294qe+8Kb7t9VvzUlpjnBn2YYmD9mcNY=",
   "Source": "Core1",
   "BasePath": "_content/Core1",
   "Mode": "Default",
@@ -117,6 +117,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\favicon.ico"
+    },
+    {
+      "Identity": "C:\\Users\\Admin\\Desktop\\DMS\\Core1\\Core1\\wwwroot\\images\\book\\book_cover.jpg",
+      "SourceId": "Core1",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Admin\\Desktop\\DMS\\Core1\\Core1\\wwwroot\\",
+      "BasePath": "_content/Core1",
+      "RelativePath": "images/book/book_cover.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\book\\book_cover.jpg"
     },
     {
       "Identity": "C:\\Users\\Admin\\Desktop\\DMS\\Core1\\Core1\\wwwroot\\images\\book\\book1.jpg",

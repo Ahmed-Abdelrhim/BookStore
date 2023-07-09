@@ -27,14 +27,30 @@ namespace Core1.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> AddNewBook(Book model)
         {
-            int id = await _repository.AddNewBook(model);
-            if (id > 0)
+            if (ModelState.IsValid)
             {
-                TempData["Success"] = "You have added new book successfully";
-                ViewBag.BookId = id;
-                return RedirectToAction(nameof(AddNewBook));
+                int id = await _repository.AddNewBook(model);
+                if (id > 0)
+                {
+                    TempData["Success"] = "You have added new book successfully";
+                    ViewBag.BookId = id;
+                    return RedirectToAction(nameof(AddNewBook));
+                }
+                return View();
             }
             return View();
+        }
+
+        [Route("book-details/{id:int}", Name = "bookDetailsRoute")]
+        public async Task<IActionResult> GetBook(int? Id)
+        {
+            if(Id != null && Id != 0)
+            {
+                Book book = await _repository.GetBookById(Id.Value);
+                return View(book);
+            }
+
+            return NotFound();
         }
     }
 }

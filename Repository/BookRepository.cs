@@ -41,5 +41,10 @@ namespace Core1.Repository
             return newBook.Id;
         }
 
+        public async Task<Book> GetBookById(int Id)
+        {
+            return await _context.Books.FindAsync(Id);
+        }
+
     }
 }
