@@ -73,12 +73,12 @@ namespace Core1.Controllers
             return View();
         }
 
-        [Route("book-details/{id}", Name = "bookDetailsRoute")]
+        // [Route("book-details/{id}", Name = "bookDetailsRoute")]
         public async Task<IActionResult> GetBook(int? Id)
         {
             if(Id != null && Id != 0)
             {
-                Books book = await _repository.GetBookById(Id.Value);
+                var book = await _repository.GetBookById(Id.Value);
                 return View(book);
             }
 

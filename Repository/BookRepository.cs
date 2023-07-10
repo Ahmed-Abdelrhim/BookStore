@@ -43,8 +43,8 @@ namespace Core1.Repository
                 Description = model.Description,
                 Title = model.Title,
                 LanguageId = model.LanguageId,
-                TotalPages =  model.TotalPages.HasValue ? model.TotalPages.Value : 0,
                 // TotalPages =  model.TotalPages.HasValue ? model.TotalPages.Value : 0,
+                TotalPages =  model.TotalPages.HasValue ? model.TotalPages.Value : 0,
             };
 
             await _context.Books.AddAsync(newBook);
@@ -53,9 +53,20 @@ namespace Core1.Repository
             return newBook.Id;
         }
 
-        public async Task<Books> GetBookById(int Id)
+        public async Task<BookModel> GetBookById(int Id)
         {
-            return await _context.Books.FindAsync(Id);
+            return await _context.Books.Where(x => x.Id == Id)
+                .Select(book => new BookModel()
+                {
+                    Author = book.Author,
+                    Category = book.Category,
+                    Id = book.Id,
+                    Title = book.Title,
+                    TotalPages = book.TotalPages,
+                    // Language = book.Language.Name
+
+                }).FirstOrDefaultAsync();
+            // return await _context.Books.FindAsync(Id);
         }
 
     }
