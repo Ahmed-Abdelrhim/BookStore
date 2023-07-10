@@ -11,6 +11,7 @@ builder.Services.AddDbContext<AppDbContext>(o => o.UseSqlServer(
 );
 
 builder.Services.AddScoped<BookRepository, BookRepository>();
+builder.Services.AddScoped<LanguageRepository, LanguageRepository>();
 
 
 var app = builder.Build();

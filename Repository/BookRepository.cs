@@ -18,20 +18,33 @@ namespace Core1.Repository
             _context = context;
         }
 
-        public async Task<IEnumerable<Book>> GetAllBooks()
+        public async Task<List<BookModel>> GetAllBooks()
         {
-            IEnumerable<Book> books = await _context.Books.ToListAsync();
-            return books;
+            return await _context.Books
+                .Select(book => new BookModel()
+                {
+                    Author = book.Author,
+                    Category = book.Category,
+                    Description = book.Description,
+                    Id = book.Id,
+                    LanguageId = book.LanguageId,
+                    Title = book.Title,
+                    TotalPages = book.TotalPages,
+                }).ToListAsync();
+            // IEnumerable<Books> books = await _context.Books.ToListAsync();
+            // return books;
         }
 
-        public async Task<int> AddNewBook(Book model)
+        public async Task<int> AddNewBook(BookModel model)
         {
-            var newBook = new Book()
+            var newBook = new Books()
             {
                 Author = model.Author,
                 Description = model.Description,
                 Title = model.Title,
-                TotalPages = model.TotalPages.HasValue ? model.TotalPages.Value : 0,
+                LanguageId = model.LanguageId,
+                TotalPages =  model.TotalPages.HasValue ? model.TotalPages.Value : 0,
+                // TotalPages =  model.TotalPages.HasValue ? model.TotalPages.Value : 0,
             };
 
             await _context.Books.AddAsync(newBook);
@@ -40,7 +53,7 @@ namespace Core1.Repository
             return newBook.Id;
         }
 
-        public async Task<Book> GetBookById(int Id)
+        public async Task<Books> GetBookById(int Id)
         {
             return await _context.Books.FindAsync(Id);
         }

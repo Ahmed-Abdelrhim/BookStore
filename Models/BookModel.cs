@@ -1,11 +1,12 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel;
+using Core1.Data;
 
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Core1.Models
 {
-    public class Book 
+    public class BookModel 
     {
         public int Id { get; set; }
         [StringLength(100, MinimumLength = 5)]
@@ -16,11 +17,14 @@ namespace Core1.Models
         [StringLength(500)]
         public string? Description { get; set; }
         public string? Category { get; set; }
-        public string? Language { get; set; }
+        [Required]
+        public int LanguageId { get; set; }
 
         [Required(ErrorMessage = "Please enter the total pages")]
         [DisplayName("Total pages of book")]
         public int? TotalPages { get; set; }
+
+        public Languages? Language { get; set; }
 
     }
 }

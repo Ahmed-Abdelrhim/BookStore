@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Core1.Models
 {
-    public class Item
+    public class ItemModel
     {
         [Key]
         [Required]
@@ -29,6 +29,6 @@ namespace Core1.Models
         [ForeignKey("Category")]
         public int CategotyId { get; set; } 
 
-        public Category? Category { get; set; }  
+        public CategoryModel? Category { get; set; }  
     }
 }

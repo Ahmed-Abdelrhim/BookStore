@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 namespace Core1.Models
 {
-    public class Category
+    public class CategoryModel
     {
         [Key]
         [Required]
@@ -10,6 +10,6 @@ namespace Core1.Models
         [Required]
         public string? Name { get; set; } 
 
-        public ICollection<Item>? Items { get; set; }
+        public ICollection<ItemModel>? Items { get; set; }
     }
 }
