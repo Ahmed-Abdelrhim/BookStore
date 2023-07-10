@@ -78,7 +78,7 @@ namespace Core1.Controllers
         {
             if(Id != null && Id != 0)
             {
-                var book = await _repository.GetBookById(Id.Value);
+                BookModel book = await _repository.GetBookById(Id.Value);
                 return View(book);
             }
 
