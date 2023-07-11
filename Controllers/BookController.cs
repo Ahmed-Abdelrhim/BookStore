@@ -67,8 +67,6 @@ namespace Core1.Controllers
                 return View();
             }
             return View();
-            // 1a71b2d09767_three.jpg
-            // /books/covers/8a2aa5ba-a44a-447d-8455-1a71b2d09767_three.jpg
         }
 
         // [Route("book-details/{id}", Name = "bookDetailsRoute")]

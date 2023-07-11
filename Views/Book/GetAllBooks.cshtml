@@ -11,7 +11,7 @@
 
         @foreach (var book in Model)
         {
-            <div class="col-md-4">
+            <div class="col-md-4" style="height: 25rem">
                 @*<partial name="_bookThumbnail" model="@book" />*@
                 <div class="card mb-4 shadow-sm">
                     <img src="@book.CoverUrl" class="img-thumbnail" />
