@@ -16,6 +16,8 @@ namespace Core1.Data
         public DateTime? CreatedOn { get; set; }
         public DateTime? UpdatedOn { get; set; }
 
+        public string? Cover { get; set; }
+
         public Languages? Language { get; set; }
 
     }

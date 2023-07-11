@@ -10,10 +10,12 @@ namespace Core1.Controllers
     {
         protected readonly BookRepository _repository;
         protected readonly LanguageRepository _languageRepo;
-        public BookController(BookRepository repository , LanguageRepository languageRepo)
+        protected readonly IWebHostEnvironment _webHostEnvironment;
+        public BookController(BookRepository repository , LanguageRepository languageRepo , IWebHostEnvironment webHostEnvironment)
         {
             _repository = repository;
             _languageRepo = languageRepo;
+            _webHostEnvironment = webHostEnvironment;
         }
 
 
@@ -25,43 +27,37 @@ namespace Core1.Controllers
 
         public async Task<ViewResult> AddNewBook()
         {
-            // ViewBag.Languages = new List<string>() {"English" , "Arabic" , "Dutch" ,"French" };
-            //ViewBag.Languages = new List<SelectListItem>()
-            //{
-            //    new SelectListItem("English","1") ,
-            //    new SelectListItem("Arabic", "2") ,
-            //    new SelectListItem("Spanish", "3") ,
-            //    new SelectListItem("Hindi", "4") ,
-            //    new SelectListItem("Turkish", "5") ,
-            //    new SelectListItem("Russian", "6")
-            //};
-
             ViewBag.Languages = new SelectList(await _languageRepo.GetLanguages(),"Id" ,"Name");
 
             return View();
         }
 
 
-        private List<LanguageModel> GetLanguages()
-        {
-            return new List<LanguageModel>()
-            {
-                new LanguageModel(){Id = 1 , Name = "English"},
-                new LanguageModel(){Id = 2 , Name = "Arabic"},
-                new LanguageModel(){Id = 3 , Name = "Spanish"},
-                new LanguageModel(){Id = 4 , Name = "Hindi"},
-                new LanguageModel(){Id = 5 , Name = "Turkish"},
-                new LanguageModel(){Id = 6 , Name = "Russian"},
-            };
-        }
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> AddNewBook(BookModel model)
         {
+            //string folder = "books/covers/";
+            //string unique = Guid.NewGuid().ToString();
+            //string fileName = unique + "_" + model.Cover.FileName;
+            //folder += fileName;
+            //string serverFolder = Path.Combine(_webHostEnvironment.WebRootPath, folder);
+            //return Content(serverFolder);
+
             if (ModelState.IsValid)
             {
-                int id = await _repository.AddNewBook(model);
+                // Check If BookModel Has a cover image
+                string ImageUrl = null;
+                if (model.Cover != null)
+                {
+                    string folder = "books/covers/";
+                    string unique = Guid.NewGuid().ToString();
+                    string fileName = folder + unique + "_" + model.Cover.FileName;
+                    ImageUrl = "/" + fileName;
+                    string serverFolder = Path.Combine(_webHostEnvironment.WebRootPath, fileName);
+                    await model.Cover.CopyToAsync(new FileStream(serverFolder, FileMode.Create));
+                }
+                int id = await _repository.AddNewBook(model, ImageUrl);
                 if (id > 0)
                 {
                     TempData["Success"] = "You have added new book successfully";
@@ -71,6 +67,8 @@ namespace Core1.Controllers
                 return View();
             }
             return View();
+            // 1a71b2d09767_three.jpg
+            // /books/covers/8a2aa5ba-a44a-447d-8455-1a71b2d09767_three.jpg
         }
 
         // [Route("book-details/{id}", Name = "bookDetailsRoute")]
@@ -84,5 +82,36 @@ namespace Core1.Controllers
 
             return NotFound();
         }
+
+        public IActionResult Play()
+        {
+            string unique = Guid.NewGuid().ToString(); 
+            return Content(unique);
+        }
+
+        private List<LanguageModel> GetLanguages()
+        {
+            // ViewBag.Languages = new List<string>() {"English" , "Arabic" , "Dutch" ,"French" };
+            //ViewBag.Languages = new List<SelectListItem>()
+            //{
+            //    new SelectListItem("English","1") ,
+            //    new SelectListItem("Arabic", "2") ,
+            //    new SelectListItem("Spanish", "3") ,
+            //    new SelectListItem("Hindi", "4") ,
+            //    new SelectListItem("Turkish", "5") ,
+            //    new SelectListItem("Russian", "6")
+            //};
+
+            return new List<LanguageModel>()
+            {
+                new LanguageModel(){Id = 1 , Name = "English"},
+                new LanguageModel(){Id = 2 , Name = "Arabic"},
+                new LanguageModel(){Id = 3 , Name = "Spanish"},
+                new LanguageModel(){Id = 4 , Name = "Hindi"},
+                new LanguageModel(){Id = 5 , Name = "Turkish"},
+                new LanguageModel(){Id = 6 , Name = "Russian"},
+            };
+        }
+
     }
 }

@@ -18,6 +18,7 @@
 
   <ItemGroup>
     <Folder Include="Migrations\" />
+    <Folder Include="wwwroot\books\covers\" />
     <Folder Include="wwwroot\images\" />
   </ItemGroup>
 

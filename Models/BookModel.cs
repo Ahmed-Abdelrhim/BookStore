@@ -18,6 +18,7 @@ namespace Core1.Models
         public string? Description { get; set; }
         public string? Category { get; set; }
         [Required]
+        [DisplayName("Language")]
         public int LanguageId { get; set; }
 
         [Required(ErrorMessage = "Please enter the total pages")]
@@ -25,6 +26,10 @@ namespace Core1.Models
         public int? TotalPages { get; set; }
 
         public Languages? Language { get; set; }
+
+        [DisplayName("Book Cover")]
+        public IFormFile? Cover { get; set; }
+        public string? CoverUrl { get; set; }
 
     }
 }

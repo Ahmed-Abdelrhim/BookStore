@@ -30,12 +30,14 @@ namespace Core1.Repository
                     LanguageId = book.LanguageId,
                     Title = book.Title,
                     TotalPages = book.TotalPages,
+                    CoverUrl = book.Cover,
                 }).ToListAsync();
             // IEnumerable<Books> books = await _context.Books.ToListAsync();
             // return books;
+            // 4121291faf94_one.jpg
         }
 
-        public async Task<int> AddNewBook(BookModel model)
+        public async Task<int> AddNewBook(BookModel model , string ImageUrl)
         {
             var newBook = new Books()
             {
@@ -45,6 +47,7 @@ namespace Core1.Repository
                 LanguageId = model.LanguageId,
                 // TotalPages =  model.TotalPages.HasValue ? model.TotalPages.Value : 0,
                 TotalPages =  model.TotalPages.HasValue ? model.TotalPages.Value : 0,
+                Cover = ImageUrl
             };
 
             await _context.Books.AddAsync(newBook);
@@ -63,7 +66,7 @@ namespace Core1.Repository
                     Id = book.Id,
                     Title = book.Title,
                     TotalPages = book.TotalPages,
-                    // Language = book.Language.Name
+                    CoverUrl = book.Cover ,
 
                 }).FirstOrDefaultAsync();
             // return await _context.Books.FindAsync(Id);
