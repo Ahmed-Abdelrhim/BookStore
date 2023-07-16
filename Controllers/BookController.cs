@@ -53,6 +53,7 @@ namespace Core1.Controllers
                     string folder = "books/covers/";
                     string unique = Guid.NewGuid().ToString();
                     string fileName = folder + unique + "_" + model.Cover.FileName;
+
                     ImageUrl = "/" + fileName;
                     string serverFolder = Path.Combine(_webHostEnvironment.WebRootPath, fileName);
                     await model.Cover.CopyToAsync(new FileStream(serverFolder, FileMode.Create));
